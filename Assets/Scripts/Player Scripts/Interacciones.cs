@@ -22,23 +22,58 @@ public class Interacciones : MonoBehaviour
     {
         if (puedeInteractuar && objetoActual != null)
         {
-            CerrarPaneles();
+            if (objetoActual.paneles == null || objetoActual.paneles.Length == 0)
+            {
+                Debug.LogWarning("El objeto interactuable no tiene paneles asignados.");
+                return;
+            }
+
+            if (indicePanel < 0 || indicePanel >= objetoActual.paneles.Length)
+            {
+                Debug.LogWarning("El índice del panel está fuera de rango.");
+                return;
+            }
 
             PanelInformacion informacion = objetoActual.paneles[indicePanel];
 
+            if (informacion == null)
+            {
+                Debug.LogWarning("La información del panel no está asignada.");
+                return;
+            }
+
+            if (informacion.panel == null)
+            {
+                Debug.LogWarning("Falta asignar el GameObject del panel.");
+                return;
+            }
+
+            CerrarPaneles();
+
             informacion.panel.SetActive(true);
-            textoInteraccion.text = informacion.texto;
-            imagenInteraccion.texture = informacion.imagen;
+
+            if (textoInteraccion != null)
+            {
+                textoInteraccion.text = informacion.texto;
+            }
+
+            if (imagenInteraccion != null)
+            {
+                imagenInteraccion.texture = informacion.imagen;
+            }
         }
     }
 
     private void CerrarPaneles()
     {
-        if (objetoActual != null)
+        if (objetoActual != null && objetoActual.paneles != null)
         {
             foreach (PanelInformacion informacion in objetoActual.paneles)
             {
-                informacion.panel.SetActive(false);
+                if (informacion != null && informacion.panel != null)
+                {
+                    informacion.panel.SetActive(false);
+                }
             }
         }
     }

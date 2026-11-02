@@ -1,19 +1,33 @@
-
 using UnityEngine;
 
 public class ReproductorSFX : MonoBehaviour
 {
+    [Header("Reproducción")]
     [SerializeField] private AudioSource sonido;
+
+    [Header("Variaciones")]
+    [SerializeField] private AudioClip[] variaciones;
+
+    private int ultimoIndice = -1;
 
     public void Reproducir()
     {
-        if (sonido != null)
+        if (sonido == null || variaciones.Length == 0)
         {
-            sonido.Play();
+            Debug.LogWarning("Falta asignar el AudioSource o los clips.");
+            return;
         }
-        else
+
+        int indice;
+
+        do
         {
-            Debug.LogWarning("No hay un AudioSource asignado.");
+            indice = Random.Range(0, variaciones.Length);
         }
+        while (variaciones.Length > 1 && indice == ultimoIndice);
+
+        ultimoIndice = indice;
+
+        sonido.PlayOneShot(variaciones[indice]);
     }
 }

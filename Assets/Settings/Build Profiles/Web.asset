@@ -21,13 +21,13 @@ MonoBehaviour:
   m_OverrideGlobalSceneList: 1
   m_Scenes:
   - m_enabled: 1
+    m_path: Assets/Scenes/Start.unity
+  - m_enabled: 1
     m_path: Assets/Scenes/Level 1.unity
   - m_enabled: 1
     m_path: Assets/Scenes/Win.unity
   - m_enabled: 1
     m_path: Assets/Scenes/Lose.unity
-  - m_enabled: 1
-    m_path: Assets/Scenes/End.unity
   m_HasScriptingDefines: 0
   m_ScriptingDefines: []
   m_PlayerSettingsYaml:
